@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row mb-3">
+    <h1>RailsTaskManager : Index of Tasks</h1>
+  </div>
+  <div class="row">
+    <div class="alert alert-primary" role="alert">
+      <a href="/tasks/new" class="card-link"><%= icon('fas', 'plus-square')%> Create a new task</a>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+      <% @tasks.each do |task| %>
+      <div class="col-4">
+      <div class="card mb-3 shadow" style="width: 18rem; height: auto;">
+        <div class="card-body">
+          <div class="row">
+            <h2 class="col-8 card-title"><%= link_to task.title, tasks_path(task) %></h2>
+            <% if task.completed? %>
+            <h3><span class="col-4 badge badge-success" style="display: inline">Done</span></h3>
+            <% else %>
+            <h3><span class="col-4 badge badge-danger" style="display: inline">To do</span></h3>
+            <% end %>
+          </div>
+          <p class="card-text"><%= task.details %>
+            <% if task.completed? %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked disabled>
+              Task already done ?
+            </div>
+            <% else %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" disabled>
+              Task already done ?
+            </div>
+            <% end %>
+          </p>
+          <div class="row">
+            <div class="col-6">
+              <a class="card-link">
+                <%= link_to "✏️ Edit task", edit_task_path(task)%>
+              </a>
+            </div>
+            <div class="col-6">
+              <a class="card-link">
+                <%= link_to "🗑 Delete task", tasks_path(task),
+              method: :delete,
+              data: { confirm: "Are you sure to delete this task?" } %>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
